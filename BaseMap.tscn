@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://BaseMap.gd" type="Script" id=1]
+
+[node name="BaseMap" type="Node2D"]
+
+script = ExtResource( 1 )
+radius = 300
+OutLine = Color( 0, 0, 0, 1 )
+Width = 2.0
+vertices = null
+
+

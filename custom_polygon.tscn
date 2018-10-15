@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://custom_polygon.gd" type="Script" id=1]
+[ext_resource path="res://Polygon2D.gd" type="Script" id=2]
+
+[node name="custom_polygon" type="Node2D"]
+
+position = Vector2( 590, 320 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+radius = 300
+OutLine = Color( 0.502014, 0.917969, 0.0860596, 1 )
+Width = 10.0
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="0"]
+
+visible = false
+polygon = PoolVector2Array( 220, 10, 20, 170, 20, 380, 420, 380, 420, 110 )
+uv = PoolVector2Array(  )
+color = Color( 0.890625, 0.0556641, 0.0556641, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 0.1
+script = ExtResource( 2 )
+_sections_unfolded = [ "Invert" ]
+OutLine = Color( 0.894241, 0.9375, 0.146484, 1 )
+Width = 2.0
+
+

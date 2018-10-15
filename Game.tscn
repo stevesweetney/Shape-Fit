@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://Map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Square.tscn" type="PackedScene" id=3]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 170, 110, 0, 0, 0, 0, 580, 110, 0, 0, 0, 0, 580, 290, 0, 0, 0, 0, 170, 290, 0, 0, 0, 0, 170, 110 )
+}
+
+[node name="Game" type="Node2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Map" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="KinematicBody2D" parent="." index="1" instance=ExtResource( 3 )]
+
+scale = Vector2( 0.4, 0.4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Path2D" type="Path2D" parent="." index="2"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
+
+position = Vector2( 170, 110 )
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+[node name="square" type="Polygon2D" parent="Path2D/PathFollow2D" index="0"]
+
+position = Vector2( -60, 60 )
+polygon = PoolVector2Array( 50, -70, 70, -70, 70, -50, 50, -50 )
+uv = PoolVector2Array(  )
+color = Color( 0.809265, 1, 0.0234375, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="HUD" parent="." index="3" instance=ExtResource( 4 )]
+
+
