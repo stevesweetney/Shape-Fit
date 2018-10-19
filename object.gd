@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-onready var square = $Area2D/Polygon2D
+onready var square = $square
 var rushing = false
 var rushing_to = 0
 export(int) var speed = 200

@@ -6,6 +6,7 @@ var AREA_GROUP = "map_01_areas"
 var area_map
 var completed = false
 onready var score_label = $Score
+onready var object = $Path2D/object/square
 
 signal completed(score)
 
@@ -30,7 +31,7 @@ func _process(delta):
 	update_score()
 	
 func update_look_ats():
-	var object_pos = $Path2D/object/Area2D/Polygon2D.global_position
+	var object_pos = object.global_position
 	$Path2D/collision01/Area2D/Polygon2D/Eyes.update_look_at(object_pos)
 	$Path2D/collision02/Area2D/Polygon2D/Eyes.update_look_at(object_pos)
 	pass

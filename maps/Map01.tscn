@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://maps/Map01.gd" type="Script" id=1]
 [ext_resource path="res://Eyes/Eyes.gd" type="Script" id=2]
@@ -7,8 +7,6 @@
 [ext_resource path="res://Eyes/inner_eye.gd" type="Script" id=5]
 [ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://object.gd" type="Script" id=7]
-
-
 
 [sub_resource type="Curve2D" id=1]
 
@@ -47,12 +45,7 @@ shader_param/distance = null
 shader_param/eye_mask = ExtResource( 3 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="RectangleShape2D" id=5]
-
-custom_solver_bias = 0.0
-extents = Vector2( 14.663, 17.8181 )
-
-[node name="Map01" type="Node2D" index="0"]
+[node name="Map01" type="Node2D"]
 
 position = Vector2( 532.514, 271.824 )
 script = ExtResource( 1 )
@@ -223,21 +216,10 @@ script = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 speed = 350
 
-[node name="Area2D" type="Area2D" parent="Path2D/object" index="0"]
+[node name="square" type="Polygon2D" parent="Path2D/object" index="0"]
 
-position = Vector2( -0.578247, 8.85904 )
-rotation = -3.11434e-06
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Transform" ]
-
-[node name="Polygon2D" type="Polygon2D" parent="Path2D/object/Area2D" index="0"]
-
+position = Vector2( -0.578217, 8.85904 )
+rotation = -3.12924e-06
 scale = Vector2( 0.6, 0.6 )
 polygon = PoolVector2Array( 12.1847, 37.2156, 49.1248, -10.0648, 9.72443, -40.8481, -27.2156, 6.43225 )
 uv = PoolVector2Array(  )
@@ -252,12 +234,6 @@ texture_rotation_degrees = 0.0
 invert_enable = false
 invert_border = 100.0
 _sections_unfolded = [ "Transform" ]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/object/Area2D" index="1"]
-
-position = Vector2( 6.53644, -0.846436 )
-rotation = 0.669798
-shape = SubResource( 5 )
 
 [node name="Score" type="Label" parent="." index="1"]
 

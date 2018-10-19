@@ -5,8 +5,7 @@
 [ext_resource path="res://assets/right_eye.png" type="Texture" id=3]
 [ext_resource path="res://Eyes/inner_eye.gd" type="Script" id=4]
 
-
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=1]
 
 code = "shader_type canvas_item;
 
@@ -20,18 +19,18 @@ void fragment() {
 	COLOR = vec4(tex_color.rgb, alpha);
 }"
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=2]
 
 render_priority = 0
-shader = SubResource( 4 )
+shader = SubResource( 1 )
 shader_param/distance = null
 shader_param/eye_mask = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=3]
 
 render_priority = 0
-shader = SubResource( 4 )
+shader = SubResource( 1 )
 shader_param/distance = null
 shader_param/eye_mask = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
@@ -49,7 +48,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="inner_eye2" type="Sprite" parent="LeftEye" index="0"]
 
-material = SubResource( 5 )
+material = SubResource( 2 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 _sections_unfolded = [ "Material", "Transform" ]
@@ -64,7 +63,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="inner_eye" type="Sprite" parent="RightEye" index="0"]
 
-material = SubResource( 6 )
+material = SubResource( 3 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 _sections_unfolded = [ "Material" ]
