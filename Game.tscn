@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Square.tscn" type="PackedScene" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=5]
+
 
 [sub_resource type="Curve2D" id=1]
 
@@ -58,5 +60,7 @@ invert_border = 100.0
 _sections_unfolded = [ "Transform" ]
 
 [node name="HUD" parent="." index="3" instance=ExtResource( 4 )]
+
+[node name="Eyes" parent="." index="4" instance=ExtResource( 5 )]
 
 

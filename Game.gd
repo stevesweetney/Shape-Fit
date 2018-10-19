@@ -28,6 +28,7 @@ func _physics_process(delta):
 			print("Inside square!")
 
 func _process(delta):
+	$Eyes.update_look_at(square.global_position)
 	if rushing:
 		follow.set_offset(follow.get_offset() + 400 * delta)
 		if follow.get_offset() > rushing_to:

@@ -11,3 +11,7 @@ func handle_score(val):
 	score += val
 	$HUD.update_score(score)
 
+
+
+func _on_Map01_completed(score):
+	handle_score(score)
