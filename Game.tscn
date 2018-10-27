@@ -1,17 +1,43 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Square.tscn" type="PackedScene" id=3]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Trail.tscn" type="PackedScene" id=4]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=6]
+[ext_resource path="res://shaders/transition.tres" type="Material" id=7]
+[ext_resource path="res://TextureRect.gd" type="Script" id=8]
 
+[sub_resource type="Gradient" id=3]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 0, 0.323334, 0.636719, 0, 0, 0.321569, 0.635294, 1 )
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 170, 110, 0, 0, 0, 0, 580, 110, 0, 0, 0, 0, 580, 290, 0, 0, 0, 0, 170, 290, 0, 0, 0, 0, 170, 110 )
+}
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "transition"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("transitionNode/TextureRect:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, -0.1, -0.1, 0, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0, 0.0, 0.0, 1.0 ]
 }
 
 [node name="Game" type="Node2D"]
@@ -24,7 +50,19 @@ _sections_unfolded = [ "Transform" ]
 [node name="KinematicBody2D" parent="." index="1" instance=ExtResource( 3 )]
 
 scale = Vector2( 0.4, 0.4 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="Trail" parent="KinematicBody2D" index="2" instance=ExtResource( 4 )]
+
+trail_length = 20
+targetPath = NodePath("..")
+
+[node name="Line2D" parent="KinematicBody2D/Trail" index="0"]
+
+z_index = -1
+width = 25.0
+gradient = SubResource( 3 )
+_sections_unfolded = [ "Fill", "Z Index" ]
 
 [node name="Path2D" type="Path2D" parent="." index="2"]
 
@@ -59,8 +97,50 @@ invert_enable = false
 invert_border = 100.0
 _sections_unfolded = [ "Transform" ]
 
-[node name="HUD" parent="." index="3" instance=ExtResource( 4 )]
+[node name="HUD" parent="." index="3" instance=ExtResource( 5 )]
 
-[node name="Eyes" parent="." index="4" instance=ExtResource( 5 )]
+[node name="Eyes" parent="." index="4" instance=ExtResource( 6 )]
+
+visible = false
+
+[node name="transitionNode" type="Node" parent="." index="5"]
+
+[node name="TextureRect" type="TextureRect" parent="transitionNode" index="0"]
+
+visible = false
+material = ExtResource( 7 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 0
+script = ExtResource( 8 )
+_sections_unfolded = [ "Material" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/transition = SubResource( 2 )
+blend_times = [  ]
+
+[node name="Tween" type="Tween" parent="." index="7"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
 
 
+[editable path="KinematicBody2D/Trail"]

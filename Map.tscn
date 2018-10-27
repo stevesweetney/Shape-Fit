@@ -5,7 +5,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 17.9191, 24.1517 )
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" index="0"]
 
 [node name="outline" type="Polygon2D" parent="." index="0"]
 

@@ -1,12 +1,13 @@
 extends PathFollow2D
 
-onready var square = $square
+onready var shape = $shape
 var rushing = false
 var rushing_to = 0
 export(int) var speed = 200
 var rush_speed = speed * 2
 
 signal hit_area(id)
+signal missed
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -18,8 +19,8 @@ func _physics_process(delta):
 		var space_state = get_world_2d().direct_space_state
 		var all_in = true
 		var area = null
-		for vertex in square.polygon:
-			var global_vertex = square.to_global(vertex)
+		for vertex in shape.polygon:
+			var global_vertex = shape.to_global(vertex)
 			var shapes = space_state.intersect_point(global_vertex, 1)
 			if shapes.empty():
 				all_in = false
@@ -28,16 +29,19 @@ func _physics_process(delta):
 			else:
 				area = shapes[0].collider
 		if all_in:
-			area.remove_from_group("map_01_areas")
+			#area.remove_from_group("map_02_areas")
 			emit_signal("hit_area", area.get_instance_id())
-			print("Inside square!")
+			print("Inside shape!")
 		elif not all_in and area:
 			print("Just missed")
+		elif not all_in and not area:
+			emit_signal("missed")
+			print("completely missed")
 	pass
 
 func _process(delta):
 	if rushing:
-		rush_speed += (speed - rush_speed) * .05
+		rush_speed += (speed - rush_speed) * .9 * delta
 		set_offset(get_offset() + rush_speed * delta)
 		if get_offset() > rushing_to:
 			rushing = false
@@ -46,4 +50,4 @@ func _process(delta):
 		set_offset(get_offset() + speed * delta)
 		if Input.is_action_just_pressed("ui_accept"):
 			rushing = true
-			rushing_to = get_offset() + speed * 2
+			rushing_to = get_offset() + speed * 1.5

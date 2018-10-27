@@ -1,0 +1,582 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://maps/Map02.gd" type="Script" id=1]
+[ext_resource path="res://assets/map02_star_area.png" type="Texture" id=2]
+[ext_resource path="res://Eyes/Eyes.gd" type="Script" id=3]
+[ext_resource path="res://assets/outer_eye.png" type="Texture" id=4]
+[ext_resource path="res://assets/right_eye.png" type="Texture" id=5]
+[ext_resource path="res://Eyes/inner_eye.gd" type="Script" id=6]
+[ext_resource path="res://object.gd" type="Script" id=7]
+[ext_resource path="res://assets/map02_star_object.png" type="Texture" id=8]
+[ext_resource path="res://Trail.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 400, 0, 0, 0, 0, 0, 156.292, 368.201, 0, 0, 0, 0, -306.417, 257.115, 0, 0, 0, 0, -368.201, 156.292, 0, 0, 0, 0, -399.939, -6.98096, 0, 0, 0, 0, 399.025, -27.9025, 0, 0, 0, 0, 400, 0 )
+}
+
+[sub_resource type="Shader" id=2]
+
+code = "shader_type canvas_item;
+
+uniform sampler2D eye_mask;
+uniform vec2 distance;
+
+void fragment() {
+	vec2 uv_offset = UV + clamp(normalize(distance), vec2(-0.3), vec2(0.3));
+	vec4 tex_color = texture(TEXTURE, uv_offset);
+	float alpha = texture(eye_mask, UV).a * tex_color.a;
+	COLOR = vec4(tex_color.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=4]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=5]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=6]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=7]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=8]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="GDScript" id=9]
+
+script/source = "extends Sprite
+
+var look_at = Vector2(0,0)
+
+func _process(delta):
+	var distance = look_at - global_position
+	#print(distance.normalized())
+	get_material().set_shader_param(\"distance\", distance)
+"
+
+[sub_resource type="ShaderMaterial" id=10]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=11]
+
+render_priority = 0
+shader = SubResource( 2 )
+shader_param/distance = null
+shader_param/eye_mask = ExtResource( 4 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="Gradient" id=12]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 0.290196, 0.345098, 0.6, 0, 0.290196, 0.345098, 0.6, 1 )
+
+[node name="Map02" type="Node2D"]
+
+position = Vector2( 530.184, 144.017 )
+script = ExtResource( 1 )
+radius = 400
+OutLine = Color( 0.333333, 0.611765, 0.678431, 1 )
+Width = 8.0
+vertices = PoolVector2Array( 400, 0, 156.292, 368.201, -306.417, 257.115, -368.201, 156.292, -399.939, -6.98096, 399.025, -27.9025 )
+
+[node name="BGLayer" type="CanvasLayer" parent="." index="0"]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="BGLayer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.572549, 0.215686, 0.301961, 1 )
+
+[node name="Path2D" type="Path2D" parent="." index="1"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 1 )
+
+[node name="collision01" type="PathFollow2D" parent="Path2D" index="0"]
+
+position = Vector2( 344.752, 83.471 )
+rotation = 2.87979
+offset = 100.043
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="Path2D/collision01" index="0"]
+
+position = Vector2( -16.4378, 9.16602 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Path2D/collision01/Area2D" index="0"]
+
+position = Vector2( 21.224, -97.3799 )
+rotation = 0.763419
+scale = Vector2( 0.770757, 0.770757 )
+polygon = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+uv = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+color = Color( 0.333333, 0.611765, 0.678431, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = ExtResource( 2 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Texture", "Transform" ]
+
+[node name="Eyes" type="Node2D" parent="Path2D/collision01/Area2D/Polygon2D" index="0"]
+
+position = Vector2( -73.7748, 7.93292 )
+rotation = 0.0496002
+scale = Vector2( 0.253195, 0.253195 )
+script = ExtResource( 3 )
+
+[node name="LeftEye" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes" index="0"]
+
+position = Vector2( 518.788, 233.762 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye2" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes/LeftEye" index="0"]
+
+material = SubResource( 3 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material", "Transform" ]
+
+[node name="RightEye" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes" index="1"]
+
+position = Vector2( 674.63, 229.661 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes/RightEye" index="0"]
+
+material = SubResource( 4 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision01/Area2D" index="1"]
+
+position = Vector2( 22.0746, -10.7987 )
+build_mode = 0
+polygon = PoolVector2Array( -37.5938, 33.1619, 1.5668, 19.3743, 35.1649, 43.6548, 34.4503, 2.54083, 67.53, -22.1519, 29.249, -34.0462, 15.5114, -72.375, -7.88608, -39.3958, -48.2592, -39.171, -23.845, -6.15308 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="collision02" type="PathFollow2D" parent="Path2D" index="1"]
+
+position = Vector2( 147.214, 366.021 )
+rotation = 2.87979
+offset = 449.991
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="Path2D/collision02" index="0"]
+
+position = Vector2( -16.4378, 9.16602 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Path2D/collision02/Area2D" index="0"]
+
+position = Vector2( 21.224, -97.3799 )
+rotation = 0.763419
+scale = Vector2( 0.770757, 0.770757 )
+polygon = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+uv = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+color = Color( 0.333333, 0.611765, 0.678431, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = ExtResource( 2 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Texture", "Transform" ]
+
+[node name="Eyes" type="Node2D" parent="Path2D/collision02/Area2D/Polygon2D" index="0"]
+
+position = Vector2( -73.7748, 7.93292 )
+rotation = 0.0496002
+scale = Vector2( 0.253195, 0.253195 )
+script = ExtResource( 3 )
+
+[node name="LeftEye" type="Sprite" parent="Path2D/collision02/Area2D/Polygon2D/Eyes" index="0"]
+
+position = Vector2( 518.788, 233.762 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye2" type="Sprite" parent="Path2D/collision02/Area2D/Polygon2D/Eyes/LeftEye" index="0"]
+
+material = SubResource( 5 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material", "Transform" ]
+
+[node name="RightEye" type="Sprite" parent="Path2D/collision02/Area2D/Polygon2D/Eyes" index="1"]
+
+position = Vector2( 674.63, 229.661 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye" type="Sprite" parent="Path2D/collision02/Area2D/Polygon2D/Eyes/RightEye" index="0"]
+
+material = SubResource( 6 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision02/Area2D" index="1"]
+
+position = Vector2( 21.2751, -10.3373 )
+build_mode = 0
+polygon = PoolVector2Array( -38.4506, 34.5945, 1.5668, 19.3743, 36.4295, 45.2006, 36.8375, 3.77594, 70.4401, -23.4081, 29.249, -34.0462, 15.8716, -72.9843, -8.16656, -41.5925, -51.0507, -41.1578, -23.845, -6.15308 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="collision03" type="PathFollow2D" parent="Path2D" index="2"]
+
+position = Vector2( -152.975, 293.953 )
+rotation = 2.87979
+offset = 759.031
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="Path2D/collision03" index="0"]
+
+position = Vector2( -16.4378, 9.16602 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Path2D/collision03/Area2D" index="0"]
+
+position = Vector2( 21.224, -97.3799 )
+rotation = 0.763419
+scale = Vector2( 0.770757, 0.770757 )
+polygon = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+uv = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+color = Color( 0.333333, 0.611765, 0.678431, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = ExtResource( 2 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Texture", "Transform" ]
+
+[node name="Eyes" type="Node2D" parent="Path2D/collision03/Area2D/Polygon2D" index="0"]
+
+position = Vector2( -73.7748, 7.93292 )
+rotation = 0.0496002
+scale = Vector2( 0.253195, 0.253195 )
+script = ExtResource( 3 )
+
+[node name="LeftEye" type="Sprite" parent="Path2D/collision03/Area2D/Polygon2D/Eyes" index="0"]
+
+position = Vector2( 518.788, 233.762 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye2" type="Sprite" parent="Path2D/collision03/Area2D/Polygon2D/Eyes/LeftEye" index="0"]
+
+material = SubResource( 7 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material", "Transform" ]
+
+[node name="RightEye" type="Sprite" parent="Path2D/collision03/Area2D/Polygon2D/Eyes" index="1"]
+
+position = Vector2( 674.63, 229.661 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye" type="Sprite" parent="Path2D/collision03/Area2D/Polygon2D/Eyes/RightEye" index="0"]
+
+material = SubResource( 8 )
+texture = ExtResource( 5 )
+script = SubResource( 9 )
+_sections_unfolded = [ "Material" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision03/Area2D" index="1"]
+
+position = Vector2( 21.2751, -10.3373 )
+build_mode = 0
+polygon = PoolVector2Array( -38.4506, 34.5945, 1.5668, 19.3743, 36.4295, 45.2006, 36.8375, 3.77594, 70.4401, -23.4081, 29.249, -34.0462, 15.8716, -72.9843, -8.16656, -41.5925, -51.0507, -41.1578, -23.845, -6.15308 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="collision04" type="PathFollow2D" parent="Path2D" index="3"]
+
+editor/display_folded = true
+position = Vector2( -385.378, -7.36226 )
+rotation = 2.87979
+offset = 1214.49
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="Path2D/collision04" index="0"]
+
+position = Vector2( -16.4378, 9.16602 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Path2D/collision04/Area2D" index="0"]
+
+position = Vector2( 21.224, -97.3799 )
+rotation = 0.763419
+scale = Vector2( 0.770757, 0.770757 )
+polygon = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+uv = PoolVector2Array( 73.75, 144, 49.75, 96.5, -2.25, 88, 36.25, 51, 28.25, -2, 74.5, 23, 122.25, -1, 113.75, 51.25, 149.75, 89.25, 98.25, 97.25 )
+color = Color( 0.333333, 0.611765, 0.678431, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = ExtResource( 2 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Texture", "Transform" ]
+
+[node name="Eyes" type="Node2D" parent="Path2D/collision04/Area2D/Polygon2D" index="0"]
+
+position = Vector2( -73.7748, 7.93292 )
+rotation = 0.0496002
+scale = Vector2( 0.253195, 0.253195 )
+script = ExtResource( 3 )
+_sections_unfolded = [ "Material" ]
+
+[node name="LeftEye" type="Sprite" parent="Path2D/collision04/Area2D/Polygon2D/Eyes" index="0"]
+
+position = Vector2( 518.788, 233.762 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye2" type="Sprite" parent="Path2D/collision04/Area2D/Polygon2D/Eyes/LeftEye" index="0"]
+
+material = SubResource( 10 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material", "Transform" ]
+
+[node name="RightEye" type="Sprite" parent="Path2D/collision04/Area2D/Polygon2D/Eyes" index="1"]
+
+position = Vector2( 674.63, 229.661 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="inner_eye" type="Sprite" parent="Path2D/collision04/Area2D/Polygon2D/Eyes/RightEye" index="0"]
+
+material = SubResource( 11 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+_sections_unfolded = [ "Material" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision04/Area2D" index="1"]
+
+position = Vector2( 21.2751, -10.3373 )
+build_mode = 0
+polygon = PoolVector2Array( -38.4506, 34.5945, 1.5668, 19.3743, 36.4295, 45.2006, 36.8375, 3.77594, 70.4401, -23.4081, 29.249, -34.0462, 15.8716, -72.9843, -8.16656, -41.5925, -51.0507, -41.1578, -23.845, -6.15308 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="object" type="PathFollow2D" parent="Path2D" index="4"]
+
+position = Vector2( 147.214, 366.021 )
+rotation = 2.87979
+offset = 449.991
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+script = ExtResource( 7 )
+_sections_unfolded = [ "Transform" ]
+speed = 350
+
+[node name="shape" type="Polygon2D" parent="Path2D/object" index="0"]
+
+position = Vector2( 5.96686, -67.8716 )
+rotation = 0.747743
+scale = Vector2( 0.6, 0.6 )
+polygon = PoolVector2Array( 148.888, 85.7672, 110.677, 48.312, 125.784, -6, 73.3412, 19.1324, 24.7844, -5, 30.0845, 48.9847, -7.21561, 84, 47.4252, 95.0744, 71.5062, 136.785, 95.2653, 94.2852 )
+uv = PoolVector2Array( 145.769, 86.25, 112.175, 49.9555, 120.678, -1.59432, 72.7691, 23, 26.6127, -2.6572, 35.1158, 48.3611, -2.48088, 85, 48.2691, 93.25, 71.7691, 138.75, 95.0191, 94 )
+color = Color( 0.290196, 0.345098, 0.6, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = ExtResource( 8 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Texture", "Transform" ]
+
+[node name="Trail" parent="Path2D/object/shape" index="0" instance=ExtResource( 9 )]
+
+targetPath = NodePath("../..")
+
+[node name="Line2D" parent="Path2D/object/shape/Trail" index="0"]
+
+width = 30.0
+gradient = SubResource( 12 )
+_sections_unfolded = [ "Fill" ]
+
+[node name="Score" type="Label" parent="." index="2"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -11.0
+margin_top = -102.0
+margin_right = 29.0
+margin_bottom = -88.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility" ]
+
+[connection signal="hit_area" from="Path2D/object" to="." method="_on_object_hit_area"]
+
+[connection signal="missed" from="Path2D/object" to="." method="_on_object_missed"]
+
+
+[editable path="Path2D/object/shape/Trail"]

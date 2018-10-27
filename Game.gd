@@ -9,7 +9,17 @@ var score = 0
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	pass
+	$Tween.interpolate_property(
+		$transitionNode/TextureRect.get_material(), "shader_param/cutoff", 0.0, 
+		1.0,  2.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	
+func start_transition():
+	var tex_rect = $transitionNode/TextureRect
+	tex_rect.get_material().set_shader_param("cutoff", 0)
+	tex_rect.cap_screen()
+	tex_rect.show()
+	$Map.hide()
+	$Tween.start()
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("left_click"):
@@ -26,6 +36,7 @@ func _physics_process(delta):
 			score += 100
 			$HUD.update_score(score)
 			print("Inside square!")
+			start_transition()
 
 func _process(delta):
 	$Eyes.update_look_at(square.global_position)

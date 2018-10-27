@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://maps/Map01.gd" type="Script" id=1]
 [ext_resource path="res://Eyes/Eyes.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Eyes/inner_eye.gd" type="Script" id=5]
 [ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://object.gd" type="Script" id=7]
+[ext_resource path="res://Trail.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -45,17 +46,45 @@ shader_param/distance = null
 shader_param/eye_mask = ExtResource( 3 )
 _sections_unfolded = [ "shader_param" ]
 
+[sub_resource type="Gradient" id=5]
+
+offsets = PoolRealArray( 0, 0.994083 )
+colors = PoolColorArray( 0.27451, 0.305882, 0.278431, 0, 0.337255, 0.509804, 0.34902, 1 )
+
 [node name="Map01" type="Node2D"]
 
 position = Vector2( 532.514, 271.824 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 radius = 300
-OutLine = Color( 1, 0.121094, 0.121094, 1 )
+OutLine = Color( 0.8, 0.988235, 0.796078, 1 )
 Width = 20.0
 vertices = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746 )
 
-[node name="Path2D" type="Path2D" parent="." index="0"]
+[node name="BGLayer" type="CanvasLayer" parent="." index="0"]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="BG" type="ColorRect" parent="BGLayer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.27451, 0.301961, 0.27451, 1 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Path2D" type="Path2D" parent="." index="1"]
 
 self_modulate = Color( 0.5, 0.6, 1, 0.7 )
 curve = SubResource( 1 )
@@ -91,10 +120,9 @@ __meta__ = {
 
 [node name="Polygon2D" type="Polygon2D" parent="Path2D/collision01/Area2D" index="0"]
 
-editor/display_folded = true
 polygon = PoolVector2Array( 12.1847, 37.2156, 49.1248, -10.0648, 9.72443, -40.8481, -27.2156, 6.43225 )
 uv = PoolVector2Array(  )
-color = Color( 1, 0.117647, 0.117647, 1 )
+color = Color( 0.8, 0.988235, 0.796078, 1 )
 vertex_colors = PoolColorArray(  )
 offset = Vector2( 0, 0 )
 antialiased = true
@@ -112,7 +140,7 @@ position = Vector2( -49.7263, -63.1802 )
 rotation = 0.557703
 scale = Vector2( 0.14, 0.14 )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform" ]
 
 [node name="LeftEye" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes" index="0"]
 
@@ -127,7 +155,6 @@ material = SubResource( 3 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
 _sections_unfolded = [ "Material", "Transform" ]
-look_at = Vector2( 0, 0 )
 
 [node name="RightEye" type="Sprite" parent="Path2D/collision01/Area2D/Polygon2D/Eyes" index="1"]
 
@@ -142,7 +169,6 @@ material = SubResource( 4 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
 _sections_unfolded = [ "Material" ]
-look_at = Vector2( 0, 0 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision01/Area2D" index="1"]
 
@@ -177,7 +203,7 @@ _sections_unfolded = [ "Transform" ]
 
 polygon = PoolVector2Array( 12.1847, 37.2156, 49.1248, -10.0648, 9.72443, -40.8481, -27.2156, 6.43225 )
 uv = PoolVector2Array(  )
-color = Color( 1, 0.117647, 0.117647, 1 )
+color = Color( 0.8, 0.988235, 0.796078, 1 )
 vertex_colors = PoolColorArray(  )
 offset = Vector2( 0, 0 )
 antialiased = true
@@ -194,7 +220,7 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( -51.5882, -63.1776 )
 rotation = 0.557703
 scale = Vector2( 0.14, 0.14 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/collision02/Area2D" index="1"]
 
@@ -216,14 +242,14 @@ script = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 speed = 350
 
-[node name="square" type="Polygon2D" parent="Path2D/object" index="0"]
+[node name="shape" type="Polygon2D" parent="Path2D/object" index="0"]
 
-position = Vector2( -0.578217, 8.85904 )
+position = Vector2( -0.578186, 8.85904 )
 rotation = -3.12924e-06
 scale = Vector2( 0.6, 0.6 )
 polygon = PoolVector2Array( 12.1847, 37.2156, 49.1248, -10.0648, 9.72443, -40.8481, -27.2156, 6.43225 )
 uv = PoolVector2Array(  )
-color = Color( 0.0416934, 0.0343323, 0.976562, 1 )
+color = Color( 0.337255, 0.509804, 0.34902, 1 )
 vertex_colors = PoolColorArray(  )
 offset = Vector2( 0, 0 )
 antialiased = true
@@ -233,10 +259,20 @@ texture_scale = Vector2( 1, 1 )
 texture_rotation_degrees = 0.0
 invert_enable = false
 invert_border = 100.0
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="Score" type="Label" parent="." index="1"]
+[node name="Trail" parent="Path2D/object/shape" index="0" instance=ExtResource( 8 )]
 
+targetPath = NodePath("../..")
+
+[node name="Line2D" parent="Path2D/object/shape/Trail" index="0"]
+
+gradient = SubResource( 5 )
+_sections_unfolded = [ "Fill", "Visibility", "Z Index" ]
+
+[node name="Score" type="Label" parent="." index="2"]
+
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -260,4 +296,7 @@ max_lines_visible = -1
 
 [connection signal="hit_area" from="Path2D/object" to="." method="_on_object_hit_area"]
 
+[connection signal="missed" from="Path2D/object" to="." method="_on_object_missed"]
 
+
+[editable path="Path2D/object/shape/Trail"]

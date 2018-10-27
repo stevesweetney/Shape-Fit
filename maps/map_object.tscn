@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://object.gd" type="Script" id=1]
+
+[node name="object" type="PathFollow2D"]
+
+position = Vector2( -261.216, 96.2358 )
+rotation = 2.87979
+offset = 630.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+speed = 350
+
+[node name="square" type="Polygon2D" parent="." index="0"]
+
+position = Vector2( -0.578217, 8.85904 )
+rotation = -3.12924e-06
+scale = Vector2( 0.6, 0.6 )
+polygon = PoolVector2Array( 12.1847, 37.2156, 49.1248, -10.0648, 9.72443, -40.8481, -27.2156, 6.43225 )
+uv = PoolVector2Array(  )
+color = Color( 0.0416934, 0.0343323, 0.976562, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = true
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Transform" ]
+
+

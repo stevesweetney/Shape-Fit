@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://assets/curtain.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D mask: hint_albedo;
+uniform float cutoff: hint_range(0, 1, 0.1);
+
+
+void fragment() {
+		vec4 c = texture(TEXTURE, UV);
+		float value = texture(mask, UV).r;
+		float alpha = smoothstep(cutoff, cutoff + 0.1, value * (1.0 - 0.1) + 0.1);
+		COLOR = vec4(c.rgb, alpha);
+}"
+_sections_unfolded = [ "Resource" ]
+
+[resource]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/cutoff = 0.0
+shader_param/mask = ExtResource( 1 )
+_sections_unfolded = [ "shader_param" ]
+

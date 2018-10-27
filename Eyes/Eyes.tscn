@@ -38,6 +38,7 @@ _sections_unfolded = [ "shader_param" ]
 [node name="Eyes" type="Node2D"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Material" ]
 
 [node name="LeftEye" type="Sprite" parent="." index="0"]
 
@@ -52,7 +53,6 @@ material = SubResource( 2 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 _sections_unfolded = [ "Material", "Transform" ]
-look_at = Vector2( 0, 0 )
 
 [node name="RightEye" type="Sprite" parent="." index="1"]
 
@@ -67,6 +67,5 @@ material = SubResource( 3 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 _sections_unfolded = [ "Material" ]
-look_at = Vector2( 0, 0 )
 
 

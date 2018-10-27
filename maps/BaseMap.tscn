@@ -2,7 +2,6 @@
 
 [ext_resource path="res://maps/BaseMap.gd" type="Script" id=1]
 
-
 [node name="BaseMap" type="Node2D"]
 
 script = ExtResource( 1 )

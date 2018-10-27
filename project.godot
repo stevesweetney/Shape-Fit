@@ -11,7 +11,12 @@ config_version=3
 [application]
 
 config/name="Fill The Space"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+globals="*res://globals.gd"
 
 [editor_plugins]
 
