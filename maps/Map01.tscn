@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://maps/Map01.gd" type="Script" id=1]
 [ext_resource path="res://Eyes/Eyes.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://object.gd" type="Script" id=7]
 [ext_resource path="res://Trail.tscn" type="PackedScene" id=8]
+[ext_resource path="res://fonts/PassionOne-Regular.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -51,7 +52,15 @@ _sections_unfolded = [ "shader_param" ]
 offsets = PoolRealArray( 0, 0.994083 )
 colors = PoolColorArray( 0.27451, 0.305882, 0.278431, 0, 0.337255, 0.509804, 0.34902, 1 )
 
-[node name="Map01" type="Node2D"]
+[sub_resource type="DynamicFont" id=6]
+
+size = 50
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 9 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="Map01" type="Node2D" index="0"]
 
 position = Vector2( 532.514, 271.824 )
 script = ExtResource( 1 )
@@ -86,6 +95,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Path2D" type="Path2D" parent="." index="1"]
 
+editor/display_folded = true
 self_modulate = Color( 0.5, 0.6, 1, 0.7 )
 curve = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -287,12 +297,25 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+custom_fonts/font = SubResource( 6 )
 text = "400"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Line2D" type="Line2D" parent="." index="3"]
+
+z_index = -1
+points = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746, 300, 0 )
+width = 20.0
+default_color = Color( 0.8, 0.988235, 0.796078, 1 )
+texture_mode = 10
+sharp_limit = 2.0
+round_precision = 8
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="hit_area" from="Path2D/object" to="." method="_on_object_hit_area"]
 

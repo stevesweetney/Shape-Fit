@@ -12,11 +12,16 @@ config_version=3
 
 config/name="Fill The Space"
 run/main_scene="res://MainMenu.tscn"
+boot_splash/image="res://assets/splash_screen.png"
 config/icon="res://icon.png"
 
 [autoload]
 
 globals="*res://globals.gd"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [editor_plugins]
 

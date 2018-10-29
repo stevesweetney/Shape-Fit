@@ -1,4 +1,22 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/PassionOne-Regular.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 30
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 30
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font", "Settings" ]
 
 [node name="EndGame" type="CanvasLayer"]
 
@@ -25,6 +43,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -32,6 +51,7 @@ group = null
 text = "BACK"
 flat = false
 align = 1
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="RESET" type="Button" parent="." index="1"]
 
@@ -41,8 +61,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -2.0
 margin_top = 59.0
-margin_right = 46.0
-margin_bottom = 79.0
+margin_right = 74.0
+margin_bottom = 99.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -50,6 +70,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -57,5 +78,6 @@ group = null
 text = "RESET"
 flat = false
 align = 1
+_sections_unfolded = [ "custom_fonts" ]
 
 

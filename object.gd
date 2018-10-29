@@ -41,7 +41,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	if rushing:
-		rush_speed += (speed - rush_speed) * .9 * delta
+		rush_speed += (speed - rush_speed) * .3 * delta
 		set_offset(get_offset() + rush_speed * delta)
 		if get_offset() > rushing_to:
 			rushing = false

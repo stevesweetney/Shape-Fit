@@ -1,8 +1,6 @@
 tool
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
 export(int) var radius = 300 setget set_radius
 export(Color) var OutLine = Color(0,0,0) setget set_color
 export(float) var Width = 2.0 setget set_width
@@ -15,20 +13,20 @@ func _ready():
 func _process(delta):
 	if Engine.editor_hint:
 		return
-
-func _draw():
-	print(vertices)
-	var points = vertices
-	points.append(points[0])
-	draw_polyline(points, OutLine, Width, true)
-
+		
 func set_color(color):
-    OutLine = color
-    update()
+	OutLine = color
+	for n in get_children():
+		if n is Line2D:
+			n.set_default_color(color)
+	update()
 
 func set_width(new_width):
-    Width = new_width
-    update()
+	Width = new_width
+	for n in get_children():
+		if n is Line2D:
+			n.set_width(new_width)
+	update()
 	
 func set_radius(new_radius):
 	var old_radius = radius
@@ -78,6 +76,27 @@ func create_or_update_path():
 		curve.add_point(vertices[0])
 		add_child(path)
 		path.owner = self
+		child_path = path
+	var child_line2d = null
+	for n in get_children():
+		if n is Line2D:
+			child_line2d = n
+			break
+	if child_line2d:
+		# clear existing points
+		while child_line2d.get_point_count() > 0:
+			child_line2d.remove_point(child_line2d.get_point_count() - 1)
+		# add updated points to Line2D
+		for point in vertices:
+			child_line2d.add_point(point)
+		child_line2d.add_point(vertices[0])
+	else:
+		var line2d = Line2D.new()
+		for point in vertices:
+			line2d.add_point(point)
+		line2d.add_point(vertices[0])
+		add_child(line2d)
+		line2d.owner = self
 	update()
 	
 func is_type(type): 

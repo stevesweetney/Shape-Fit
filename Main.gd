@@ -1,6 +1,7 @@
 extends Node
 
 var score = 0
+var animated_score = 0
 var maps = [preload("res://maps/Map01.tscn"), preload("res://maps/Map02.tscn"), preload("res://maps/Map01.tscn")]
 var active_map = 0
 var reset = false
@@ -40,6 +41,7 @@ func start():
 	curr.active = true
 	
 func _process(delta):
+	$HUD.update_score(round(animated_score))
 	var shake = cam_trauma * cam_trauma
 	var offsetX = MAX_OFFSET * shake * rand_range(-1, 1)
 	var offsetY = MAX_OFFSET * shake * rand_range(-1, 1)
@@ -51,12 +53,14 @@ func _process(delta):
 	
 func handle_score(val):
 	score += val
-	$HUD.update_score(score)
+	$AnimTransition.interpolate_property(self, "animated_score", animated_score, score, .8, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	if not $AnimTransition.is_active():
+		$AnimTransition.start() 
 	
 func start_transition():
 	$AnimTransition.interpolate_property(
 		$Transition.get_material(), "shader_param/cutoff", 0.0, 
-		1.0,  1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		1.0,  1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 	$Transition.get_material().set_shader_param("cutoff", 0)
 	$Transition.cap_screen()
 	prev = curr
@@ -66,7 +70,8 @@ func start_transition():
 	prev.queue_free()
 	var position_p = curr.get_position_in_parent()
 	move_child($Transition, position_p)
-	$AnimTransition.start()
+	if not $AnimTransition.is_active():
+		$AnimTransition.start()
 	
 func _on_map_completed(score):
 	handle_score(score)
