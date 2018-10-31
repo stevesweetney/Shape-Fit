@@ -13,3 +13,9 @@ func update_score(score):
 	
 func update_best(score):
 	$BestScoreLabel.text = "Best: %s" % str(score)
+	
+func hide_score():
+	$ScoreLabel.hide()
+	
+func show_score():
+	$ScoreLabel.show()

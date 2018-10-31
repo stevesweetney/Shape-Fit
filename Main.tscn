@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shaders/transition.tres" type="Material" id=3]
 [ext_resource path="res://Transition.gd" type="Script" id=4]
+[ext_resource path="res://assets/izyo82_ui-131.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/gong.wav" type="AudioStream" id=6]
 
 [node name="Main" type="Node" index="0"]
 
@@ -66,5 +68,23 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Editor", "Transform" ]
+
+[node name="area_hit_sfx" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 5 )
+volume_db = -15.0
+pitch_scale = 0.9
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="area_miss_sfx" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 6 )
+volume_db = -4.0
+pitch_scale = 0.95
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

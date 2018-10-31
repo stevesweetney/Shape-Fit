@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pi392f_ui-139.wav-f454529a815df5acad1910944863f531.sample"
+
+[deps]
+
+source_file="res://assets/pi392f_ui-139.wav"
+dest_files=[ "res://.import/pi392f_ui-139.wav-f454529a815df5acad1910944863f531.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

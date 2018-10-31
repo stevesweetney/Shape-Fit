@@ -6,6 +6,7 @@ var AREA_GROUP = "map_01_areas"
 var area_map
 var completed = false
 onready var score_label = $Score
+onready var score_bar = $ScoreBar
 onready var object = $Path2D/object/shape
 var active = false setget active_set
 
@@ -25,6 +26,7 @@ func _ready():
 		collision_area2.get_instance_id(): "Path2D/collision02/Area2D"
 	}
 	obtainable_score = 400
+	score_bar.max_value = 400
 	self.active_set(false)
 	show_all_eyes()	
 	
@@ -35,8 +37,10 @@ func active_set(value):
 	$Path2D/object.set_physics_process(value)
 	if value:
 		$Score.show()
+		$ScoreBar.show()
 	if not value:
 		$Score.hide()
+		$ScoreBar.hide()
 
 func show_all_eyes():
 	for area in get_tree().get_nodes_in_group(AREA_GROUP):
@@ -48,6 +52,7 @@ func _process(delta):
 	update_look_ats()
 	obtainable_score -= 10 * delta
 	obtainable_score = max(0.0, obtainable_score)
+	score_bar.value = obtainable_score
 	if obtainable_score == 0.0:
 		emit_signal("loss")
 	update_score()
@@ -61,9 +66,10 @@ func update_look_ats():
 func _on_object_hit_area(id):
 	if completed:
 		return
-	emit_signal("hit_area")
 	var area = get_node(NodePath(area_map[id]))
-	area.remove_from_group("map_01_areas")
+	if area.is_in_group("map_01_areas"):
+		emit_signal("hit_area")
+		area.remove_from_group("map_01_areas")
 	var remaining_areas = get_tree().get_nodes_in_group(AREA_GROUP)
 	print(remaining_areas.size())
 	
@@ -80,3 +86,7 @@ func update_score():
 
 func _on_object_missed():
 	emit_signal("loss")
+
+
+func _on_object_close_miss():
+	emit_signal("close_miss")

@@ -19,10 +19,6 @@ config/icon="res://icon.png"
 
 globals="*res://globals.gd"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [editor_plugins]
 
 enabled=PoolStringArray( "map_generator" )

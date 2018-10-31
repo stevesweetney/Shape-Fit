@@ -21,16 +21,24 @@ func _ready():
 	$HUD.update_best(globals.best_score)
 	start()
 	
+func connect_map_signals(map_to_connect):
+	map_to_connect.connect("completed", self, "_on_map_completed")
+	map_to_connect.connect("loss", self, "_on_map_loss")
+	map_to_connect.connect("hit_area", self, "_on_area_hit")
+	map_to_connect.connect("close_miss", self, "_on_area_miss")
+	
+func disconnect_map_signals(map_to_disconnect):
+	map_to_disconnect.disconnect("completed", self, "_on_map_completed")
+	map_to_disconnect.disconnect("loss", self, "_on_map_loss")
+	map_to_disconnect.disconnect("hit_area", self, "_on_area_hit")
+	map_to_disconnect.disconnect("close_miss", self, "_on_area_miss")
+	
 func start():
 	curr = maps[active_map].instance()
 	add_child(curr)
-	curr.connect("completed", self, "_on_map_completed")
-	curr.connect("loss", self, "_on_map_loss")
-	curr.connect("hit_area", self, "_on_area_hit")
+	
 	if not curr.is_connected("completed", self, "_on_map_completed"):
-		curr.connect("completed", self, "_on_map_completed")
-		curr.connect("loss", self, "_on_map_loss")
-		curr.connect("hit_area", self, "_on_area_hit")
+		connect_map_signals(curr)
 	var reset_button = end_screen.get_node("RESET")
 	var back_button = end_screen.get_node("BACK")
 	if not reset_button.is_connected("pressed", self, "reset_game"):
@@ -53,7 +61,7 @@ func _process(delta):
 	
 func handle_score(val):
 	score += val
-	$AnimTransition.interpolate_property(self, "animated_score", animated_score, score, .8, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$AnimTransition.interpolate_property(self, "animated_score", animated_score, score, 1.4, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	if not $AnimTransition.is_active():
 		$AnimTransition.start() 
 	
@@ -62,7 +70,9 @@ func start_transition():
 		$Transition.get_material(), "shader_param/cutoff", 0.0, 
 		1.0,  1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 	$Transition.get_material().set_shader_param("cutoff", 0)
+	$HUD.hide_score()
 	$Transition.cap_screen()
+	$HUD.show_score()
 	prev = curr
 	curr = maps[active_map].instance()
 	add_child(curr)
@@ -75,24 +85,21 @@ func start_transition():
 	
 func _on_map_completed(score):
 	handle_score(score)
-	curr.disconnect("completed", self, "_on_map_completed")
-	curr.disconnect("loss", self, "_on_map_loss")
-	curr.disconnect("hit_area", self, "_on_area_hit")
+	disconnect_map_signals(curr)
 	if active_map + 1 == maps.size():
 		shuffle(maps)
 		active_map = 0
 	else:
 		active_map += 1
 	#add_child(maps[active_map+1])
-	start_transition()
+	start_transition() # start transition effect and change current map
 	yield($AnimTransition, "tween_completed")
-	curr.connect("completed", self, "_on_map_completed")
-	curr.connect("loss", self, "_on_map_loss")
-	curr.connect("hit_area", self, "_on_area_hit")
+	connect_map_signals(curr)
 	curr.active = true
 	
 func _on_map_loss():
 	curr.active = false
+	$area_miss_sfx.play()
 	#print("score: %s best: %s" % [score, globals.best_score])
 	globals.best_score = max(score, globals.best_score)
 	globals.save_game()
@@ -102,6 +109,10 @@ func _on_map_loss():
 	
 func _on_area_hit():
 	cam_trauma += .2
+	$area_hit_sfx.play()
+	
+func _on_area_miss():
+	$area_miss_sfx.play()
 	
 func shuffle(arr):
 	var i  = arr.size() - 1;
@@ -122,6 +133,7 @@ func _deferred_reset_game():
 	remove_child(end_screen)
 	active_map = 0
 	score = 0
+	animated_score = 0
 	$HUD.update_score(score)
 	prev = null
 	shuffle(maps)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://maps/Map01.gd" type="Script" id=1]
 [ext_resource path="res://Eyes/Eyes.gd" type="Script" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://Eyes/Eyes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://object.gd" type="Script" id=7]
 [ext_resource path="res://Trail.tscn" type="PackedScene" id=8]
-[ext_resource path="res://fonts/PassionOne-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://ScoreBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://fonts/PassionOne-Regular.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -57,12 +58,12 @@ colors = PoolColorArray( 0.27451, 0.305882, 0.278431, 0, 0.337255, 0.509804, 0.3
 size = 50
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="Map01" type="Node2D" index="0"]
 
-position = Vector2( 532.514, 271.824 )
+position = Vector2( 534.786, 383.156 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 radius = 300
@@ -95,7 +96,6 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Path2D" type="Path2D" parent="." index="1"]
 
-editor/display_folded = true
 self_modulate = Color( 0.5, 0.6, 1, 0.7 )
 curve = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -280,17 +280,34 @@ targetPath = NodePath("../..")
 gradient = SubResource( 5 )
 _sections_unfolded = [ "Fill", "Visibility", "Z Index" ]
 
-[node name="Score" type="Label" parent="." index="2"]
+[node name="Line2D" type="Line2D" parent="." index="2"]
+
+z_index = -1
+points = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746, 300, 0 )
+width = 20.0
+default_color = Color( 0.8, 0.988235, 0.796078, 1 )
+texture_mode = 10
+sharp_limit = 2.0
+round_precision = 8
+_sections_unfolded = [ "Z Index" ]
+
+[node name="ScoreBar" parent="." index="3" instance=ExtResource( 9 )]
+
+visible = false
+margin_top = -359.0
+margin_bottom = -285.0
+
+[node name="Score" type="Label" parent="." index="4"]
 
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -10.0
-margin_top = -257.0
-margin_right = 30.0
-margin_bottom = -243.0
+margin_left = 4.0
+margin_top = -352.0
+margin_right = 77.0
+margin_bottom = -296.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -304,18 +321,9 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Line2D" type="Line2D" parent="." index="3"]
-
-z_index = -1
-points = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746, 300, 0 )
-width = 20.0
-default_color = Color( 0.8, 0.988235, 0.796078, 1 )
-texture_mode = 10
-sharp_limit = 2.0
-round_precision = 8
-_sections_unfolded = [ "Z Index" ]
+[connection signal="close_miss" from="Path2D/object" to="." method="_on_object_close_miss"]
 
 [connection signal="hit_area" from="Path2D/object" to="." method="_on_object_hit_area"]
 

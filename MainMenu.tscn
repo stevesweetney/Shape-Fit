@@ -3,7 +3,7 @@
 [ext_resource path="res://MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://custom.theme" type="Theme" id=2]
 
-[node name="MainMenu" type="CanvasLayer"]
+[node name="MainMenu" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )

@@ -7,6 +7,8 @@ export(float) var Width = 2.0 setget set_width
 var color = Color(1.0, 0.0, 0.0)
 export(PoolVector2Array) var vertices
 
+signal close_miss
+
 func _ready():
 	update()
 	
