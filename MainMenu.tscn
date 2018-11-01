@@ -3,7 +3,7 @@
 [ext_resource path="res://MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://custom.theme" type="Theme" id=2]
 
-[node name="MainMenu" type="CanvasLayer" index="0"]
+[node name="MainMenu" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -24,6 +24,7 @@ margin_right = 86.0
 margin_bottom = -117.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_bottom = NodePath("../Tutorial")
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -37,7 +38,7 @@ group = null
 text = "PLAY"
 flat = false
 align = 1
-_sections_unfolded = [ "Anchor", "Theme", "custom_fonts" ]
+_sections_unfolded = [ "Anchor", "Focus", "Theme", "custom_fonts" ]
 
 [node name="Tutorial" type="Button" parent="." index="1"]
 
@@ -51,6 +52,8 @@ margin_right = 160.0
 margin_bottom = -7.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_top = NodePath("../Play")
+focus_neighbour_bottom = NodePath("../Quit")
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -64,7 +67,7 @@ group = null
 text = "TUTORIAL"
 flat = false
 align = 1
-_sections_unfolded = [ "Theme", "custom_fonts" ]
+_sections_unfolded = [ "Focus", "Theme", "custom_fonts" ]
 
 [node name="Quit" type="Button" parent="." index="2"]
 
@@ -78,6 +81,7 @@ margin_right = 102.0
 margin_bottom = 115.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_top = NodePath("../Tutorial")
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -91,7 +95,7 @@ group = null
 text = "QUIT"
 flat = false
 align = 1
-_sections_unfolded = [ "Theme", "custom_fonts" ]
+_sections_unfolded = [ "Focus", "Theme", "custom_fonts" ]
 
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
 

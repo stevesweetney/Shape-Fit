@@ -39,8 +39,8 @@ func start():
 	
 	if not curr.is_connected("completed", self, "_on_map_completed"):
 		connect_map_signals(curr)
-	var reset_button = end_screen.get_node("RESET")
-	var back_button = end_screen.get_node("BACK")
+	var reset_button = end_screen.get_node("EndScreenCtrl/RESET")
+	var back_button = end_screen.get_node("EndScreenCtrl/BACK")
 	if not reset_button.is_connected("pressed", self, "reset_game"):
 		reset_button.connect("pressed", self, "reset_game")
 	if not back_button.is_connected("pressed", self, "go_to_main_menu"):
