@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://Transition.gd" type="Script" id=4]
 [ext_resource path="res://assets/izyo82_ui-131.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/gong.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/fight.ogg" type="AudioStream" id=7]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -83,6 +84,15 @@ bus = "Master"
 stream = ExtResource( 6 )
 volume_db = -4.0
 pitch_scale = 0.95
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 7 )
+volume_db = -5.0
+pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"

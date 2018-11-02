@@ -13,7 +13,8 @@ config_version=3
 config/name="Fill The Space"
 run/main_scene="res://MainMenu.tscn"
 boot_splash/image="res://assets/splash_screen.png"
-config/icon="res://icon.png"
+boot_splash/bg_color=Color( 0.964706, 0.976471, 0.188235, 1 )
+config/icon="res://assets/mobile-icon-192.png"
 
 [autoload]
 

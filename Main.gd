@@ -47,6 +47,7 @@ func start():
 		back_button.connect("pressed", self, "go_to_main_menu")
 		
 	curr.active = true
+	$BGMusic.play()
 	
 func _process(delta):
 	$HUD.update_score(round(animated_score))
@@ -99,7 +100,7 @@ func _on_map_completed(score):
 	
 func _on_map_loss():
 	curr.active = false
-	$area_miss_sfx.play()
+	$BGMusic.stop()
 	#print("score: %s best: %s" % [score, globals.best_score])
 	globals.best_score = max(score, globals.best_score)
 	globals.save_game()
