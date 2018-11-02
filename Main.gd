@@ -14,6 +14,13 @@ var MAX_ANGLE = 10 # angle in degs
 var MAX_OFFSET = 10
 onready var norm_cam_angle = $Cam.rotation_degrees
 
+func _input(event):
+	if event is InputEventKey and event.is_pressed() and event.scancode == KEY_M:
+		if $BGMusic.is_playing():
+			$BGMusic.stop()
+		elif not $BGMusic.is_playing():
+			$BGMusic.play()
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here

@@ -2,12 +2,17 @@
 
 [ext_resource path="res://maps/BaseMap.gd" type="Script" id=1]
 
-[node name="BaseMap" type="Node2D"]
+[node name="BaseMap" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 radius = 300
 OutLine = Color( 0, 0, 0, 1 )
 Width = 2.0
 vertices = null
+obtainable_score = null
+AREA_GROUP = "map_01_areas"
+score_label = null
+score_bar = null
+object = null
 
 

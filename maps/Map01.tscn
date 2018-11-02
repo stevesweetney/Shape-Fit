@@ -61,15 +61,20 @@ use_filter = true
 font_data = ExtResource( 10 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Map01" type="Node2D" index="0"]
+[node name="Map01" type="Node2D"]
 
 position = Vector2( 534.786, 383.156 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 radius = 300
-OutLine = Color( 0.8, 0.988235, 0.796078, 1 )
+OutLine = Color( 0.8, 0.984314, 0.792157, 1 )
 Width = 20.0
 vertices = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746 )
+obtainable_score = 400
+AREA_GROUP = "map_01_areas"
+score_label = NodePath("Score")
+score_bar = NodePath("ScoreBar")
+object = NodePath("Path2D/object/shape")
 
 [node name="BGLayer" type="CanvasLayer" parent="." index="0"]
 
@@ -285,7 +290,7 @@ _sections_unfolded = [ "Fill", "Visibility", "Z Index" ]
 z_index = -1
 points = PoolVector2Array( 300, 0, -259.808, 150, -267.302, -136.197, 172.073, -245.746, 300, 0 )
 width = 20.0
-default_color = Color( 0.8, 0.988235, 0.796078, 1 )
+default_color = Color( 0.8, 0.984314, 0.792157, 1 )
 texture_mode = 10
 sharp_limit = 2.0
 round_precision = 8
