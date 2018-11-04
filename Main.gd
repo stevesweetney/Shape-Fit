@@ -8,6 +8,7 @@ var reset = false
 var prev = null
 var curr = null
 var end_screen = preload("res://EndGame.tscn").instance()
+var explosion_fx = preload("res://Explosion.tscn")
 onready var globals = get_node("/root/globals")
 var cam_trauma = 0
 var MAX_ANGLE = 10 # angle in degs
@@ -54,7 +55,12 @@ func start():
 		back_button.connect("pressed", self, "go_to_main_menu")
 		
 	curr.active = true
-	$BGMusic.play()
+	if not $BGMusic.playing:
+		$BGMusic.play()
+	else:
+		$AnimTransition.interpolate_property(
+			$BGMusic, "volume_db", $BGMusic.get_volume_db(), 0, 1.0, 
+			Tween.TRANS_QUAD, Tween.EASE_IN)
 	
 func _process(delta):
 	$HUD.update_score(round(animated_score))
@@ -69,7 +75,9 @@ func _process(delta):
 	
 func handle_score(val):
 	score += val
-	$AnimTransition.interpolate_property(self, "animated_score", animated_score, score, 1.4, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$AnimTransition.interpolate_property(
+		self, "animated_score", animated_score, score, 1.8, 
+		Tween.TRANS_QUAD, Tween.EASE_OUT)
 	if not $AnimTransition.is_active():
 		$AnimTransition.start() 
 	
@@ -86,8 +94,9 @@ func start_transition():
 	add_child(curr)
 	remove_child(prev)
 	prev.queue_free()
-	var position_p = curr.get_position_in_parent()
-	move_child($Transition, position_p)
+#	var position_p = curr.get_position_in_parent()
+#	move_child($Transition, position_p)
+	$Transition.raise()
 	if not $AnimTransition.is_active():
 		$AnimTransition.start()
 	
@@ -101,13 +110,19 @@ func _on_map_completed(score):
 		active_map += 1
 	#add_child(maps[active_map+1])
 	start_transition() # start transition effect and change current map
-	yield($AnimTransition, "tween_completed")
+	while yield($AnimTransition, "tween_completed")[0] != $Transition.get_material():
+		pass
 	connect_map_signals(curr)
 	curr.active = true
 	
 func _on_map_loss():
 	curr.active = false
-	$BGMusic.stop()
+	#$BGMusic.stop()
+	if $BGMusic.playing:
+		$AnimTransition.interpolate_property(
+			$BGMusic, "volume_db", $BGMusic.get_volume_db(), -30, 1.0, 
+			Tween.TRANS_QUAD, Tween.EASE_IN)
+		$AnimTransition.start()
 	#print("score: %s best: %s" % [score, globals.best_score])
 	globals.best_score = max(score, globals.best_score)
 	globals.save_game()
@@ -115,12 +130,17 @@ func _on_map_loss():
 	add_child(end_screen)
 	print("You lose!")
 	
-func _on_area_hit():
-	cam_trauma += .2
+func _on_area_hit(pos):
+	var e = explosion_fx.instance()
+	e.global_position = pos
+	add_child(e)
+	e.start()
+	cam_trauma += .15
 	$area_hit_sfx.play()
 	
 func _on_area_miss():
 	$area_miss_sfx.play()
+	cam_trauma += .32
 	
 func shuffle(arr):
 	var i  = arr.size() - 1;

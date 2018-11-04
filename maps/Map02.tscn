@@ -132,7 +132,7 @@ Width = 8.0
 vertices = PoolVector2Array( 400, 0, 156.292, 368.201, -306.417, 257.115, -368.201, 156.292, -399.939, -6.98096, 399.025, -27.9025 )
 obtainable_score = 800
 AREA_GROUP = "map_02_areas"
-score_label = NodePath("Score")
+score_label = NodePath("ScoreBar/Score")
 score_bar = NodePath("ScoreBar")
 object = NodePath("Path2D/object/shape")
 
@@ -572,16 +572,17 @@ margin_top = -128.0
 margin_bottom = -54.0
 max_value = 800.0
 
-[node name="Score" type="Label" parent="." index="3"]
+[node name="Score" type="Label" parent="ScoreBar" index="0"]
 
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = -117.0
-margin_right = 64.0
-margin_bottom = -61.0
+margin_left = 239.0
+margin_top = 11.0
+margin_right = 303.0
+margin_bottom = 67.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -597,7 +598,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_fonts" ]
 
-[node name="Line2D" type="Line2D" parent="." index="4"]
+[node name="Line2D" type="Line2D" parent="." index="3"]
 
 z_index = -1
 points = PoolVector2Array( 400, 0, 156.292, 368.201, -306.417, 257.115, -368.201, 156.292, -399.939, -6.98096, 399.025, -27.9025, 400, 0 )

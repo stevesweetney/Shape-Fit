@@ -1,25 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://EndScreenCtrl.gd" type="Script" id=1]
-[ext_resource path="res://fonts/PassionOne-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://theme/custom.theme" type="Theme" id=1]
+[ext_resource path="res://EndScreenCtrl.gd" type="Script" id=2]
+[ext_resource path="res://fonts/passion_one_font.tres" type="DynamicFont" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-
-size = 30
-use_mipmaps = false
-use_filter = true
-font_data = ExtResource( 2 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[sub_resource type="DynamicFont" id=2]
-
-size = 30
-use_mipmaps = false
-use_filter = true
-font_data = ExtResource( 2 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[node name="EndGame" type="CanvasLayer" index="0"]
+[node name="EndGame" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -41,7 +26,9 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 1 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+_sections_unfolded = [ "Size Flags", "Theme" ]
 
 [node name="RESET" type="Button" parent="EndScreenCtrl" index="0"]
 
@@ -60,7 +47,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -87,7 +74,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -95,6 +82,6 @@ group = null
 text = "BACK"
 flat = false
 align = 1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_colors", "custom_constants", "custom_fonts" ]
 
 

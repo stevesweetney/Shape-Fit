@@ -5,6 +5,7 @@ onready var square = $Path2D/PathFollow2D/square
 var rushing = false
 var rushing_to = 0
 var score = 0
+var explosion = preload("res://Explosion.tscn")
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -49,4 +50,9 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_accept"):
 			rushing = true
 			rushing_to = follow.get_offset() + 200
+			var e_particles = explosion.instance()
+			e_particles.global_position = square.to_global(square.polygon[0])
+			add_child(e_particles)
+			e_particles.start()
+			
 		

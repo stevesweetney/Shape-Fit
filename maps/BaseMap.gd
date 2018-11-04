@@ -17,7 +17,7 @@ export(NodePath) var object
 var active = false setget active_set
 
 signal completed(score)
-signal hit_area
+signal hit_area(pos)
 signal loss
 signal close_miss
 
@@ -131,11 +131,11 @@ func active_set(value):
 	$Path2D/object.set_process(value)
 	$Path2D/object.set_physics_process(value)
 	if value:
-		$Score.show()
-		$ScoreBar.show()
+		get_node(score_label).show()
+		get_node(score_bar).show()
 	if not value:
-		$Score.hide()
-		$ScoreBar.hide()
+		get_node(score_label).hide()
+		get_node(score_bar).hide()
 
 func update_look_ats():
 	var object_pos = get_node(object).global_position
@@ -159,8 +159,10 @@ func _on_object_close_miss():
 func _on_object_hit_area(id):
 	if completed:
 		return
-	emit_signal("hit_area")
 	var area = get_node(NodePath(area_map[id]))
+	if not area.is_in_group(AREA_GROUP):
+		return
+	emit_signal("hit_area", area.get_global_position())
 	area.remove_from_group(AREA_GROUP)
 	var remaining_areas = get_tree().get_nodes_in_group(AREA_GROUP)
 	print(remaining_areas.size())

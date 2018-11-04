@@ -22,5 +22,4 @@ func process_input():
 
 func _process(delta):
 	process_input()
-	velocity = velocity * 0.98;
 	move_and_slide(velocity)

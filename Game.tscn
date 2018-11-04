@@ -9,21 +9,20 @@
 [ext_resource path="res://shaders/transition.tres" type="Material" id=7]
 [ext_resource path="res://TextureRect.gd" type="Script" id=8]
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0, 0.323334, 0.636719, 0, 0, 0.321569, 0.635294, 1 )
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id=2]
 
 bake_interval = 5.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 170, 110, 0, 0, 0, 0, 580, 110, 0, 0, 0, 0, 580, 290, 0, 0, 0, 0, 170, 290, 0, 0, 0, 0, 170, 110 )
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource_name = "transition"
 length = 3.0
 loop = false
 step = 0.1
@@ -54,20 +53,19 @@ _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="Trail" parent="KinematicBody2D" index="2" instance=ExtResource( 4 )]
 
-trail_length = 20
 targetPath = NodePath("..")
 
 [node name="Line2D" parent="KinematicBody2D/Trail" index="0"]
 
 z_index = -1
 width = 25.0
-gradient = SubResource( 3 )
-_sections_unfolded = [ "Fill", "Z Index" ]
+gradient = SubResource( 1 )
+_sections_unfolded = [ "Fill", "Visibility", "Z Index" ]
 
 [node name="Path2D" type="Path2D" parent="." index="2"]
 
 self_modulate = Color( 0.5, 0.6, 1, 0.7 )
-curve = SubResource( 1 )
+curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
 
@@ -82,7 +80,7 @@ lookahead = 4.0
 
 [node name="square" type="Polygon2D" parent="Path2D/PathFollow2D" index="0"]
 
-position = Vector2( -60, 60 )
+position = Vector2( -56.0389, 54.2783 )
 polygon = PoolVector2Array( 50, -70, 70, -70, 70, -50, 50, -50 )
 uv = PoolVector2Array(  )
 color = Color( 0.809265, 1, 0.0234375, 1 )
@@ -130,7 +128,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/transition = SubResource( 2 )
+anims/transition = SubResource( 3 )
 blend_times = [  ]
 
 [node name="Tween" type="Tween" parent="." index="7"]
