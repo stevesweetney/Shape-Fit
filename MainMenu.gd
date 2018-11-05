@@ -5,7 +5,7 @@ extends CanvasLayer
 # var b = "textvar"
 
 func _ready():
-	$Play.grab_focus()
+	$VBoxContainer/Play.grab_focus()
 
 
 func on_quit():
@@ -14,3 +14,7 @@ func on_quit():
 	
 func _on_Play_pressed():
 	get_tree().change_scene("res://Main.tscn")
+
+
+func _on_Tutorial_pressed():
+	$WindowDialog.popup()
