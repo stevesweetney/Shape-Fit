@@ -21,19 +21,21 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 
+resource_local_to_scene = true
 render_priority = 0
 shader = SubResource( 1 )
 shader_param/distance = null
 shader_param/eye_mask = ExtResource( 2 )
-_sections_unfolded = [ "shader_param" ]
+_sections_unfolded = [ "Resource", "shader_param" ]
 
 [sub_resource type="ShaderMaterial" id=3]
 
+resource_local_to_scene = true
 render_priority = 0
 shader = SubResource( 1 )
 shader_param/distance = null
 shader_param/eye_mask = ExtResource( 2 )
-_sections_unfolded = [ "shader_param" ]
+_sections_unfolded = [ "Resource", "shader_param" ]
 
 [node name="Eyes" type="Node2D"]
 

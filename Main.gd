@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 var animated_score = 0
-var maps = [preload("res://maps/Map01.tscn"), preload("res://maps/Map02.tscn"), preload("res://maps/Map01.tscn")]
+var maps = [preload("res://maps/Map01.tscn"), preload("res://maps/Map02.tscn"), preload("res://maps/Map03.tscn")]
 var active_map = 0
 var reset = false
 var prev = null
@@ -75,8 +75,12 @@ func _process(delta):
 	
 func handle_score(val):
 	score += val
+	$HUD.update_gain(val)
 	$AnimTransition.interpolate_property(
 		self, "animated_score", animated_score, score, 1.8, 
+		Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$AnimTransition.interpolate_property(
+		$HUD/ScoreLabel/Gain, "modulate", Color(1,1,1,1), Color(1,1,1,0), 1.8, 
 		Tween.TRANS_QUAD, Tween.EASE_OUT)
 	if not $AnimTransition.is_active():
 		$AnimTransition.start() 
