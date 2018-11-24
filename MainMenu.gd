@@ -9,7 +9,6 @@ func _ready():
 
 
 func on_quit():
-	print("quiting")
 	get_tree().quit()
 	
 func _on_Play_pressed():

@@ -165,11 +165,9 @@ func _on_object_hit_area(id):
 	emit_signal("hit_area", area.get_global_position())
 	area.remove_from_group(AREA_GROUP)
 	var remaining_areas = get_tree().get_nodes_in_group(AREA_GROUP)
-	print(remaining_areas.size())
 
 	area.get_node(NodePath("CollisionPolygon2D")).disabled = true
 	area.get_node(NodePath("Polygon2D/Eyes")).hide()
 	if remaining_areas.empty():
 		completed = true
-		print("Map completed.")
 		emit_signal("completed", int(obtainable_score))

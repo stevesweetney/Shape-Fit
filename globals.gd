@@ -16,5 +16,4 @@ func load_game():
         return # Error save file does not exist
     file.open("user://savegame.save", File.READ);
     var content = parse_json(file.get_line())
-    print(content);
     self.best_score = content["best_score"];

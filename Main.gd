@@ -127,12 +127,10 @@ func _on_map_loss():
 			$BGMusic, "volume_db", $BGMusic.get_volume_db(), -30, 1.0, 
 			Tween.TRANS_QUAD, Tween.EASE_IN)
 		$AnimTransition.start()
-	#print("score: %s best: %s" % [score, globals.best_score])
 	globals.best_score = max(score, globals.best_score)
 	globals.save_game()
 	$HUD.update_best(globals.best_score)
 	add_child(end_screen)
-	print("You lose!")
 	
 func _on_area_hit(pos):
 	var e = explosion_fx.instance()

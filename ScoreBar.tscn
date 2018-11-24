@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/bar_bg.png" type="Texture" id=1]
 [ext_resource path="res://assets/bar_progress.png" type="Texture" id=2]
 
-[node name="ScoreBar" type="TextureProgress"]
+[node name="ScoreBar" type="TextureProgress" index="0"]
 
 anchor_left = 0.5
 anchor_top = 0.0

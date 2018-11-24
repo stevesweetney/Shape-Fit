@@ -9,11 +9,6 @@ var rush_speed = speed * 2
 signal hit_area(id)
 signal missed
 signal close_miss
-
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			print("mouse button event")
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("hit_area"):
@@ -30,15 +25,11 @@ func _physics_process(delta):
 			else:
 				area = shapes[0].collider
 		if all_in:
-			#area.remove_from_group("map_02_areas")
 			emit_signal("hit_area", area.get_instance_id())
-			print("Inside shape!")
 		elif not all_in and area:
 			emit_signal("close_miss")
-			print("Just missed")
 		elif not all_in and not area:
 			emit_signal("missed")
-			print("completely missed")
 	pass
 
 func _process(delta):
